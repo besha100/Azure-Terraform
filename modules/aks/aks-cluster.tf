@@ -5,23 +5,18 @@ resource "azurerm_kubernetes_cluster" "aks" {
   dns_prefix          = var.dns_prefix
   kubernetes_version  = var.kubernetes_version
 
-  linux_profile {
-    admin_username = var.admin_username
-
-    ssh_key {
-      key_data = file("${var.environment}-${var.name}-rsa.pub")
-    }
-  }
-
   default_node_pool {
-    name            = "${var.environment}${var.name}"
-    type            = "VirtualMachineScaleSets"
-    node_count      = var.node_count
-    vm_size         = var.vm_size
-    os_disk_size_gb = var.os_disk_size_gb
-    vnet_subnet_id  = var.subnet
-    max_pods        = var.linux_max_pods
-    os_disk_type    = "Ephemeral"
+    name                = "${var.environment}${var.name}"
+    type                = "VirtualMachineScaleSets"
+    node_count          = var.node_count
+    vm_size             = var.vm_size
+    os_disk_size_gb     = var.os_disk_size_gb
+    vnet_subnet_id      = var.subnet
+    max_pods            = var.linux_max_pods
+    os_disk_type        = "Ephemeral"
+    enable_auto_scaling = true
+    min_count           = var.nodes_min_count
+    max_count           = var.nodes_max_count
   }
 
   sku_tier          = var.environment == "prod" ? "Paid" : "Free" 
@@ -33,7 +28,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
   network_profile {
     network_plugin = "azure"
     network_policy = "calico"
-    load_balancer_sku = "Standard"
   }
 
   private_cluster_enabled = false

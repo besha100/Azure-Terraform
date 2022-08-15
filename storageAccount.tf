@@ -1,8 +1,8 @@
-module "aks-cluster-rg" {
+module "aks-cluster-sa" {
   source                = "./modules/storageAccount"
   name                  = "ecco"
   location              = var.location
-  rgname                = module.aks-cluster-rg.name
+  rgname                = module.aks-cluster-rg.resource_group_name
 
   tags = {
     "environment"       = var.environment

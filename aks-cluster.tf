@@ -17,20 +17,20 @@ module "ecco-aks-cluster" {
   source = "./modules/aks"
   
   name                   = "ecco"
-  environmet             = var.environment
-  rgname                 = module.aks-cluster-rg.name
+  environment             = var.environment
+  rgname                 = module.aks-cluster-rg.resource_group_name
   dns_prefix             = var.dns_prefix
   node_count             = var.node_count
   vm_size                = var.vm_size
-  kubernetes_version     = var.kubernetes_version
+  kubernetes_version     = "1.24.0"
   tenant_id              = var.tenant_id
   linux_max_pods         = var.linux_max_pods
   os_disk_size_gb        = var.os_disk_size_gb
-  public_ip              = var.public_ip
-
-  lifecycle {
-    prevent_destroy = true
-  }
+  nodes_min_count        = var.nodes_min_count
+  nodes_max_count        = var.nodes_max_count
+  location               = var.location
+  subnet                 = module.aks-cluster-subnet.subnet_id
+  
 
   tags = {
     "environment"        = var.environment

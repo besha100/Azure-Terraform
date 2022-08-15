@@ -1,50 +1,26 @@
 variable "name" {
+  description = "The name of the storage account"
+  type        = string 
 }
 
-variable "rg_name" {
+variable "rgname" {
+  description = "The resource group name of the storage account"
+  type        = string 
 }
 
 variable "environment" {
+  description = "The environment of the storage account"
+  type        = string
+  default     = "dev"
 }
 
 variable "tags" {
+  description = "Tags to describe the created resource"
   type    = map(string)
   default = {}
 }
 
-# variable "priority" {
-# }
-
-
-# variable "direction" {
-# }
-
-# variable "access" {
-# }
-
-# variable "protocol" {
-# }
-
-# variable "source_address_prefix" {
-# }
-
-# variable "source_port_range" {
-# }
-
-# variable "destination_address_prefixes" {
-# }
-
-# variable "destination_port_range" {
-# }
-
-# variable "nsg_name" {
-# }
-
-# variable "description" {
-# }
-
-# variable "location" {
-# }
-
-# variable "vnet_address_space" {
-# }
+variable "location" {
+  description = "The location where the resource will be created on"
+  type        = string 
+}
