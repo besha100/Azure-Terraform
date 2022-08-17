@@ -1,5 +1,5 @@
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                = "${var.environment}-${var.name}-aks"
+  name                = "${var.environment}_${var.name}_aks"
   location            = var.location
   resource_group_name = var.rgname
   dns_prefix          = var.dns_prefix

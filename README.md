@@ -70,10 +70,10 @@ Store Terraform state that will be used in provider.tf file.
 terraform version
 ```
 
-- Set the working directory to gcp/gke
+- Set the working directory to azure_terraform
 
 ```bash
-cd Azure-Terraform
+cd azure_terraform
 ```
 
 - Initialize tge Terraform code
@@ -107,17 +107,17 @@ For production environment use the same steps above and replace `dev.tfvars` by 
 
 - Terraform Plan
 
-[Azure terraform plan output](https://github.com/besha100/Azure-Terraform/blob/main/assests/tf-plan.txt)
+[Azure terraform plan output](https://github.com/besha100/azure_terraform/blob/main/assests/tf_plan.txt)
 
-![Azure terraform plan](assests/tf-plan.png)
+![Azure terraform plan](assests/tf_plan.png)
 
 - Terraform Apply
 
-[Azure terraform apply](https://github.com/besha100/Azure-Terraform/blob/main/assests/tf-apply.txt)
+[Azure terraform apply](https://github.com/besha100/azure_terraform/blob/main/assests/tf_apply.txt)
 
-![Azure terraform apply](assests/tf-apply.png)
+![Azure terraform apply](assests/tf_apply.png)
 
 - The AKS cluster in Azure portal
-![Azure AKS cluster](assests/aks-azure.png)
+![Azure AKS cluster](assests/aks_azure.png)
 
 

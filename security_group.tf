@@ -1,10 +1,10 @@
-module "aks-cluster-sg" {
-  source                = "./modules/securityGroups"
+module "aks_cluster_sg" {
+  source                = "./modules/security_group"
 
   name                  = "ecco"
-  rgname                = module.aks-cluster-rg.resource_group_name
+  rgname                = module.aks_cluster_rg.resource_group_name
   location              = var.location
-  subnet_id             = module.aks-cluster-subnet.subnet_id
+  subnet_id             = module.aks_cluster_subnet.subnet_id
   custom_rules          = [
     {
       name                        = "https"
@@ -17,8 +17,8 @@ module "aks-cluster-sg" {
       destination_port_range      = "443"
       source_address_prefixes     = "*"
       destination_address_prefix  = "*"
-      resource_group_name         = module.aks-cluster-rg.resource_group_name
-      description                 = "Allow-ingress-https"
+      resource_group_name         = module.aks_cluster_rg.resource_group_name
+      description                 = "Allow_ingress_https"
     }
   ]
 

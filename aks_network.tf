@@ -1,9 +1,9 @@
 // AKS VNET
-module "aks-cluster-vnet" {
+module "aks_cluster_vnet" {
   source                = "./modules/vnet"
 
   name                  = "ecco"
-  rgname                = module.aks-cluster-rg.resource_group_name
+  rgname                = module.aks_cluster_rg.resource_group_name
   location              = var.location
   vnet_address_space    = var.vnet_address_space
 
@@ -15,12 +15,12 @@ module "aks-cluster-vnet" {
 }
 
 // AKS Subnet
-module "aks-cluster-subnet" {
+module "aks_cluster_subnet" {
   source                = "./modules/subnet"
 
   name                  = "ecco"
-  rgname                = module.aks-cluster-rg.resource_group_name
-  vnet_name             = module.aks-cluster-vnet.vnet_name
+  rgname                = module.aks_cluster_rg.resource_group_name
+  vnet_name             = module.aks_cluster_vnet.vnet_name
   address_prefix        = var.address_prefix
   
   tags = {

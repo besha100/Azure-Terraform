@@ -1,6 +1,6 @@
 // AKS resource group
-module "aks-cluster-rg" {
-  source                = "./modules/resourceGroup"
+module "aks_cluster_rg" {
+  source                = "./modules/resource_group"
   name                  = "ecco"
   location              = var.location
 
@@ -13,12 +13,12 @@ module "aks-cluster-rg" {
 
 
 // AKS cluster
-module "ecco-aks-cluster" {
+module "ecco_aks_cluster" {
   source = "./modules/aks"
   
   name                   = "ecco"
   environment             = var.environment
-  rgname                 = module.aks-cluster-rg.resource_group_name
+  rgname                 = module.aks_cluster_rg.resource_group_name
   dns_prefix             = var.dns_prefix
   node_count             = var.node_count
   vm_size                = var.vm_size
@@ -29,7 +29,7 @@ module "ecco-aks-cluster" {
   nodes_min_count        = var.nodes_min_count
   nodes_max_count        = var.nodes_max_count
   location               = var.location
-  subnet                 = module.aks-cluster-subnet.subnet_id
+  subnet                 = module.aks_cluster_subnet.subnet_id
   
 
   tags = {
