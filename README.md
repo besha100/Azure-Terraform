@@ -117,9 +117,9 @@ For production environment use the same steps above and replace `dev.tfvars` by 
 
 - Terraform Apply
 
-[first layer terraform apply](https://github.com/besha100/azure_terraform/blob/main/assests/network_security_apply.txt)
+    [first layer terraform apply log](https://github.com/besha100/Azure-Terraform/blob/main/assests/network_security_apply.txt)
 
-[second layer terraform apply](https://github.com/besha100/azure_terraform/blob/main/assests/tf_apply.txt)
+    [second layer terraform apply log](https://github.com/besha100/Azure-Terraform/blob/main/assests/tf_apply.txt)
 
 - The AKS cluster in Azure portal
 ![Azure AKS cluster](assests/aks_azure.png)
