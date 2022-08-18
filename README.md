@@ -62,19 +62,26 @@ Store Terraform state that will be used in provider.tf file.
 
 #### 3- Provisioning a cluster using Terraform
 
-**Create dev AKS cluster**
+**Create multi-layer terraform state**
+It is best practice to split the terraform into multi-layer architecture depending on complexity of the application environment. The principle is based on dividing the infrastructure into logical layers and representing these layers in the form of separate directories. The deployment of an infrastructure will therefore no longer be done by running Terraform in a single directory, but in as many directories as there are layers.
 
-- Verify that the Terraform tool has been installed correctly with:
+As an example here, we will split terrafrom into two layers:
+1- network and security layer
+2- compute and storage layer
+
+
+- First, verify that the Terraform tool has been installed correctly with:
 
 ```bash
 terraform version
 ```
 
-- Set the working directory to azure_terraform
+- Then, set the working directory to the first layer directory
 
 ```bash
-cd azure_terraform
+cd azure_terraform/network_security
 ```
+
 
 - Initialize tge Terraform code
 
@@ -103,19 +110,16 @@ terraform apply "dev_plan_outputs.json"
 
 For production environment use the same steps above and replace `dev.tfvars` by `prod.tfvars`, `dev_plan_outputs.json` by `prod_plan_outputs.json` 
 
+- Switch back to the second layer directory (compute_storage) and perform the above steps again to initiate, plan and deploy the second layer infrastructure.
+
+
 #### 4- Terraform Deployment log:
-
-- Terraform Plan
-
-[Azure terraform plan output](https://github.com/besha100/azure_terraform/blob/main/assests/tf_plan.txt)
-
-![Azure terraform plan](assests/tf_plan.png)
 
 - Terraform Apply
 
-[Azure terraform apply](https://github.com/besha100/azure_terraform/blob/main/assests/tf_apply.txt)
+[first layer terraform apply](https://github.com/besha100/azure_terraform/blob/main/assests/network_security_apply.txt)
 
-![Azure terraform apply](assests/tf_apply.png)
+[second layer terraform apply](https://github.com/besha100/azure_terraform/blob/main/assests/tf_apply.txt)
 
 - The AKS cluster in Azure portal
 ![Azure AKS cluster](assests/aks_azure.png)

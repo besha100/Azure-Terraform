@@ -20,9 +20,9 @@ variable "tags" {
   default = {}
 }
 
-variable "address_prefix" {
-  description = "The address prefix of the subnet"
-  type        = string
+variable "address_prefixes" {
+  description = "The address prefixes of the subnet"
+  type        = list
 }
 
 variable "vnet_name" {

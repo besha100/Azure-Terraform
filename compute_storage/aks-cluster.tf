@@ -1,16 +1,3 @@
-// AKS resource group
-module "aks_cluster_rg" {
-  source                = "./modules/resource_group"
-  name                  = "ecco"
-  location              = var.location
-
-  tags = {
-    "environment"       = var.environment
-    "team"              = "App DevOps"
-    "purpose"           = "kubernetes cluster resource group"
-  }
-}
-
 
 // AKS cluster
 module "ecco_aks_cluster" {
@@ -18,7 +5,7 @@ module "ecco_aks_cluster" {
   
   name                   = "ecco"
   environment             = var.environment
-  rgname                 = module.aks_cluster_rg.resource_group_name
+  rgname                 = data.terraform_remote_state.network_security.outputs.aks_rg_name
   dns_prefix             = var.dns_prefix
   node_count             = var.node_count
   vm_size                = var.vm_size
@@ -29,7 +16,7 @@ module "ecco_aks_cluster" {
   nodes_min_count        = var.nodes_min_count
   nodes_max_count        = var.nodes_max_count
   location               = var.location
-  subnet                 = module.aks_cluster_subnet.subnet_id
+  subnet                 = data.terraform_remote_state.network_security.outputs.aks_subnet_id
   
 
   tags = {

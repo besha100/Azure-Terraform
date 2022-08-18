@@ -21,7 +21,7 @@ module "aks_cluster_subnet" {
   name                  = "ecco"
   rgname                = module.aks_cluster_rg.resource_group_name
   vnet_name             = module.aks_cluster_vnet.vnet_name
-  address_prefix        = var.address_prefix
+  address_prefixes      = var.address_prefixes
   
   tags = {
     "environment"       = var.environment
@@ -30,3 +30,6 @@ module "aks_cluster_subnet" {
   }
 }
 
+output "aks_subnet_id" {
+  value = module.aks_cluster_subnet.subnet_id
+}
