@@ -53,13 +53,3 @@ variable "location" {
   description = "The location where the resource will be created on"
   type        = string
 }
-
-variable "vnet_address_space" {
-  description = "AKS Vnet address space"
-  type        = string
-}
-
-variable "address_prefix" {
-  description = "AKS subnet address prefix"
-  type        = string
-}

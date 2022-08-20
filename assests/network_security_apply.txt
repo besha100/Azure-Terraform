@@ -1,0 +1,133 @@
+Acquiring state lock. This may take a few moments...
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the
+following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.aks_cluster_rg.azurerm_resource_group.resource_group will be created
+  + resource "azurerm_resource_group" "resource_group" {
+      + id       = (known after apply)
+      + location = "eastus2"
+      + name     = "dev_ecco_rg"
+      + tags     = {
+          + "environment" = "dev"
+          + "purpose"     = "kubernetes cluster resource group"
+          + "team"        = "App DevOps"
+        }
+    }
+
+  # module.aks_cluster_sg.azurerm_network_security_group.nw_nsg_group will be created
+  + resource "azurerm_network_security_group" "nw_nsg_group" {
+      + id                  = (known after apply)
+      + location            = "eastus2"
+      + name                = "dev_ecco_nsg"
+      + resource_group_name = "dev_ecco_rg"
+      + security_rule       = (known after apply)
+      + tags                = {
+          + "environment" = "dev"
+          + "purpose"     = "kubernetes cluster network"
+          + "team"        = "App DevOps"
+        }
+    }
+
+  # module.aks_cluster_sg.azurerm_network_security_rule.custom_rules[0] will be created
+  + resource "azurerm_network_security_rule" "custom_rules" {
+      + access                      = "Allow"
+      + description                 = "Allow_ingress_https"
+      + destination_address_prefix  = "*"
+      + destination_port_range      = "443"
+      + direction                   = "Inbound"
+      + id                          = (known after apply)
+      + name                        = "https"
+      + network_security_group_name = "dev_ecco_nsg"
+      + priority                    = 1000
+      + protocol                    = "tcp"
+      + resource_group_name         = "dev_ecco_rg"
+      + source_address_prefix       = "Internet"
+      + source_port_range           = "*"
+    }
+
+  # module.aks_cluster_sg.azurerm_subnet_network_security_group_association.nw_nsg_group will be created
+  + resource "azurerm_subnet_network_security_group_association" "nw_nsg_group" {
+      + id                        = (known after apply)
+      + network_security_group_id = (known after apply)
+      + subnet_id                 = (known after apply)
+    }
+
+  # module.aks_cluster_subnet.azurerm_subnet.subnet will be created
+  + resource "azurerm_subnet" "subnet" {
+      + address_prefix                                 = (known after apply)
+      + address_prefixes                               = [
+          + "192.168.0.0/18",
+        ]
+      + enforce_private_link_endpoint_network_policies = false
+      + enforce_private_link_service_network_policies  = false
+      + id                                             = (known after apply)
+      + name                                           = "dev_ecco_subnet"
+      + resource_group_name                            = "dev_ecco_rg"
+      + service_endpoints                              = [
+          + "Microsoft.ServiceBus",
+          + "Microsoft.KeyVault",
+          + "Microsoft.Sql",
+          + "Microsoft.Storage",
+        ]
+      + virtual_network_name                           = "dev_ecco_vnet"
+    }
+
+  # module.aks_cluster_vnet.azurerm_virtual_network.vnet will be created
+  + resource "azurerm_virtual_network" "vnet" {
+      + address_space         = [
+          + "192.168.0.0/16",
+        ]
+      + dns_servers           = (known after apply)
+      + guid                  = (known after apply)
+      + id                    = (known after apply)
+      + location              = "eastus2"
+      + name                  = "dev_ecco_vnet"
+      + resource_group_name   = "dev_ecco_rg"
+      + subnet                = (known after apply)
+      + tags                  = {
+          + "environment" = "dev"
+          + "purpose"     = "kubernetes cluster virtual network"
+          + "team"        = "App DevOps"
+        }
+      + vm_protection_enabled = false
+    }
+
+Plan: 6 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + aks_rg_name   = "dev_ecco_rg"
+  + aks_subnet_id = (known after apply)
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+module.aks_cluster_rg.azurerm_resource_group.resource_group: Creating...
+module.aks_cluster_rg.azurerm_resource_group.resource_group: Creation complete after 3s [id=/subscriptions/5bf99147-b840-4830-8588-309cdc9b318b/resourceGroups/dev_ecco_rg]
+module.aks_cluster_sg.azurerm_network_security_group.nw_nsg_group: Creating...
+module.aks_cluster_vnet.azurerm_virtual_network.vnet: Creating...
+module.aks_cluster_sg.azurerm_network_security_group.nw_nsg_group: Creation complete after 10s [id=/subscriptions/5bf99147-b840-4830-8588-309cdc9b318b/resourceGroups/dev_ecco_rg/providers/Microsoft.Network/networkSecurityGroups/dev_ecco_nsg]
+module.aks_cluster_sg.azurerm_network_security_rule.custom_rules[0]: Creating...
+module.aks_cluster_vnet.azurerm_virtual_network.vnet: Still creating... [10s elapsed]
+module.aks_cluster_vnet.azurerm_virtual_network.vnet: Creation complete after 11s [id=/subscriptions/5bf99147-b840-4830-8588-309cdc9b318b/resourceGroups/dev_ecco_rg/providers/Microsoft.Network/virtualNetworks/dev_ecco_vnet]
+module.aks_cluster_subnet.azurerm_subnet.subnet: Creating...
+module.aks_cluster_subnet.azurerm_subnet.subnet: Creation complete after 6s [id=/subscriptions/5bf99147-b840-4830-8588-309cdc9b318b/resourceGroups/dev_ecco_rg/providers/Microsoft.Network/virtualNetworks/dev_ecco_vnet/subnets/dev_ecco_subnet]
+module.aks_cluster_sg.azurerm_subnet_network_security_group_association.nw_nsg_group: Creating...
+module.aks_cluster_sg.azurerm_network_security_rule.custom_rules[0]: Still creating... [10s elapsed]
+module.aks_cluster_sg.azurerm_network_security_rule.custom_rules[0]: Creation complete after 12s [id=/subscriptions/5bf99147-b840-4830-8588-309cdc9b318b/resourceGroups/dev_ecco_rg/providers/Microsoft.Network/networkSecurityGroups/dev_ecco_nsg/securityRules/https]
+module.aks_cluster_sg.azurerm_subnet_network_security_group_association.nw_nsg_group: Still creating... [10s elapsed]
+module.aks_cluster_sg.azurerm_subnet_network_security_group_association.nw_nsg_group: Creation complete after 11s [id=/subscriptions/5bf99147-b840-4830-8588-309cdc9b318b/resourceGroups/dev_ecco_rg/providers/Microsoft.Network/virtualNetworks/dev_ecco_vnet/subnets/dev_ecco_subnet]
+Releasing state lock. This may take a few moments...
+
+Apply complete! Resources: 6 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+aks_rg_name = "dev_ecco_rg"
+aks_subnet_id = "/subscriptions/5bf99147-b840-4830-8588-309cdc9b318b/resourceGroups/dev_ecco_rg/providers/Microsoft.Network/virtualNetworks/dev_ecco_vnet/subnets/dev_ecco_subnet"

@@ -1,11 +1,11 @@
 variable "name" {
   description = "The name of the vnet"
-  type        = string 
+  type        = string
 }
 
 variable "rgname" {
   description = "The resource group name of the vnet"
-  type        = string 
+  type        = string
 }
 
 variable "environment" {
@@ -16,16 +16,16 @@ variable "environment" {
 
 variable "tags" {
   description = "Tags to describe the created resource"
-  type    = map(string)
-  default = {}
+  type        = map(string)
+  default     = {}
 }
 
 variable "location" {
   description = "The location where the resource will be created on"
-  type        = string 
+  type        = string
 }
 variable "vnet_address_space" {
   description = "The vnet address space"
-  type        = string 
+  type        = string
 }
 

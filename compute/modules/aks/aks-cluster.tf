@@ -19,7 +19,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     max_count           = var.nodes_max_count
   }
 
-  sku_tier          = var.environment == "prod" ? "Paid" : "Free" 
+  sku_tier = var.environment == "prod" ? "Paid" : "Free"
 
   identity {
     type = "SystemAssigned"
@@ -31,12 +31,12 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   private_cluster_enabled = false
-  
+
   role_based_access_control {
     azure_active_directory {
       managed            = true
       azure_rbac_enabled = true
-      tenant_id         = var.tenant_id
+      tenant_id          = var.tenant_id
     }
     enabled = true
   }

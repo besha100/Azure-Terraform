@@ -11,11 +11,11 @@ variable "environment" {
 
 variable "tags" {
   description = "Tags to describe the created resource"
-  type    = map(string)
-  default = {}
+  type        = map(string)
+  default     = {}
 }
 
 variable "location" {
   description = "The location where the resource will be created on"
-  type        = string 
+  type        = string
 }

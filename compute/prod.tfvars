@@ -1,0 +1,9 @@
+environment     = "prod"
+location        = "eastus2"
+dns_prefix      = "prod-ecco"
+node_count      = 1
+nodes_min_count = 1
+nodes_max_count = 2
+vm_size         = "Standard_D4s_v3"
+linux_max_pods  = 110
+os_disk_size_gb = 100
