@@ -1,11 +1,11 @@
 variable "name" {
   description = "The name of the subnet"
-  type        = string 
+  type        = string
 }
 
 variable "rgname" {
   description = "The resource group name of the subnet"
-  type        = string 
+  type        = string
 }
 
 variable "environment" {
@@ -16,13 +16,13 @@ variable "environment" {
 
 variable "tags" {
   description = "Tags to describe the created resource"
-  type    = map(string)
-  default = {}
+  type        = map(string)
+  default     = {}
 }
 
 variable "address_prefixes" {
   description = "The address prefixes of the subnet"
-  type        = list
+  type        = list(any)
 }
 
 variable "vnet_name" {

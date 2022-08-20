@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     azurerm = {
-      source = "hashicorp/azurerm"
+      source  = "hashicorp/azurerm"
       version = "<= 2.99.0"
     }
   }
@@ -11,7 +11,7 @@ terraform {
     storage_account_name = "tfstate27584"
     container_name       = "tfstate"
     key                  = "network_security.tfstate"
-    }
+  }
 }
 
 provider "azurerm" {

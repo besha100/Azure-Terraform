@@ -16,8 +16,8 @@ variable "tenant_id" {
 
 variable "tags" {
   description = "Tags to describe the created resource"
-  type    = map(string)
-  default = {}
+  type        = map(string)
+  default     = {}
 }
 
 variable "kubernetes_version" {
@@ -63,20 +63,20 @@ variable "os_disk_size_gb" {
 
 variable "subnet" {
   description = "The subnet where the AKS will be created on"
-  type        = string 
+  type        = string
 }
 
 variable "location" {
   description = "The location where the resource will be created on"
-  type        = string 
+  type        = string
 }
 
 variable "name" {
   description = "The name of the AKS"
-  type        = string 
+  type        = string
 }
 
 variable "rgname" {
   description = "The resource group name of the AKS"
-  type        = string 
+  type        = string
 }

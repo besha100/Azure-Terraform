@@ -16,5 +16,5 @@ variable "vnet_address_space" {
 
 variable "address_prefixes" {
   description = "AKS subnet address prefix"
-  type        = list
+  type        = list(any)
 }
