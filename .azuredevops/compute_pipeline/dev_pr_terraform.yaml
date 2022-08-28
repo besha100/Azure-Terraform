@@ -1,0 +1,13 @@
+name: $(Year:yy).$(Month).$(DayOfMonth)$(Rev:-r)
+trigger:
+- main
+variables:
+  environment: dev
+  terraformServiceConnection: terraform_svc_connection
+  stateResourceGroup: tfstate
+  stateStorageAccount: tfstate27584
+  stateContainer: tfstate
+  stateStorageKey: compute.tfstate
+
+stages:
+- template: ../terraform_template_pipelines/compute_pr_pipeline.yaml  # Template reference

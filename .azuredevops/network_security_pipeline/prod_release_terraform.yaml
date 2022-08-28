@@ -1,0 +1,13 @@
+name: $(Year:yy).$(Month).$(DayOfMonth)$(Rev:-r)
+trigger:
+- main
+variables:
+  environment: prod
+  terraformServiceConnection: terraform_svc_connection
+  stateResourceGroup: tfstate
+  stateStorageAccount: tfstate27584
+  stateContainer: tfstate
+  stateStorageKey: network_security.tfstate
+
+stages:
+- template: ../terraform_template_pipelines/network_security_release_pipeline.yaml  # Template reference

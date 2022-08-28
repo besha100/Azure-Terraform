@@ -1,0 +1,56 @@
+# Release pipeline for the compute layer in Dev environment
+stages:
+  - stage: Terraform_Release
+    displayName: Release pipeline
+    dependsOn: []
+
+    jobs:
+    - job: Job_1
+      displayName: Terraform plan and apply
+
+      pool:
+        vmImage: ubuntu-latest
+        
+      steps:
+      - task: TerraformTaskV3@3
+        displayName: Terraform format
+        inputs:
+          provider: 'azurerm'
+          command: 'custom'
+          customCommand: 'fmt'
+          workingDirectory: 'compute'
+          commandOptions: '--recursive'
+          outputTo: 'console'
+          environmentServiceNameAzureRM: $(terraformServiceConnection)
+
+      - task: TerraformTaskV3@3
+        displayName: Terraform init
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          workingDirectory: compute
+          backendServiceArm: $(terraformServiceConnection)
+          backendAzureRmResourceGroupName: $(stateResourceGroup)
+          backendAzureRmStorageAccountName: $(stateStorageAccount)
+          backendAzureRmContainerName: $(stateContainer)
+          backendAzureRmKey: $(stateStorageKey)
+
+      - task: TerraformTaskV3@3
+        displayName: Terraform plan
+        env:
+          TF_VAR_tenant_id: $(SUBSCRIPTION_ID)
+        inputs:
+          command: plan
+          workingDirectory: compute
+          commandOptions: -var-file=$(System.DefaultWorkingDirectory)/compute/$(environment).tfvars
+          environmentServiceNameAzureRM: $(terraformServiceConnection)
+
+      - task: TerraformTaskV3@3
+        displayName: Terraform apply
+        env:
+          TF_VAR_tenant_id: $(SUBSCRIPTION_ID)
+        inputs:
+          command: apply
+          workingDirectory: compute
+          commandOptions: -var-file=$(System.DefaultWorkingDirectory)/compute/$(environment).tfvars
+          environmentServiceNameAzureRM: $(terraformServiceConnection)

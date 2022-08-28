@@ -1,0 +1,45 @@
+# Release pipeline for the compute layer in Dev environment
+stages:
+  - stage: Terraform_Release
+    displayName: Release pipeline
+    dependsOn: []
+
+    jobs:
+    - job: Job_1
+      displayName: Terraform plan and release
+
+      pool:
+        vmImage: ubuntu-latest
+        
+      steps:
+      - task: TerraformTaskV3@3
+        displayName: Terraform init
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          workingDirectory: network_security
+          backendServiceArm: $(terraformServiceConnection)
+          backendAzureRmResourceGroupName: $(stateResourceGroup)
+          backendAzureRmStorageAccountName: $(stateStorageAccount)
+          backendAzureRmContainerName: $(stateContainer)
+          backendAzureRmKey: $(stateStorageKey)
+
+      - task: TerraformTaskV3@3
+        displayName: Terraform plan
+        env:
+          TF_VAR_tenant_id: $(SUBSCRIPTION_ID)
+        inputs:
+          command: plan
+          workingDirectory: network_security
+          commandOptions: -var-file=$(System.DefaultWorkingDirectory)/network_security/$(environment).tfvars
+          environmentServiceNameAzureRM: $(terraformServiceConnection)
+
+      - task: TerraformTaskV3@3
+        displayName: Terraform apply
+        env:
+          TF_VAR_tenant_id: $(SUBSCRIPTION_ID)
+        inputs:
+          command: apply
+          workingDirectory: network_security
+          commandOptions: -var-file=$(System.DefaultWorkingDirectory)/network_security/$(environment).tfvars
+          environmentServiceNameAzureRM: $(terraformServiceConnection)
